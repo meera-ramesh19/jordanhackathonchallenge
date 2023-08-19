@@ -41,7 +41,7 @@ image:`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/
 
   return (
     <div>
-      
+      <h1>Pokemon Stats</h1>
       <Pokemon   pokemons={pokemons} />
     </div>
   )

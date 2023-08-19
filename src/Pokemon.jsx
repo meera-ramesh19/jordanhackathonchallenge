@@ -11,7 +11,16 @@ const Pokemon = (pokemons) => {
     const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
     const [filteredPokemons, setFilteredPokemons] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [sortOption, setSortOption] = useState('id_asc'); //
+    const [sortOption, setSortOption] = useState('none'); //
+
+
+    // const sortMethods = {
+    //   none: { method: (a, b) => null },
+    //   idAsc: { method: (a, b) => ( a.id - b.id)},
+    //   idDesc: { method: (a, b) => ( b.id - a.id)},
+    //   nameAsc: { method: (a, b) => (a > b ? 1 : -1) },
+    //   nameDesc: { method: (a, b) => (a > b ? -1 : 1) },
+    // };
    
     let BASE_URL = `https://pokeapi.co/api/v2/pokemon/`;
 
@@ -161,6 +170,14 @@ const Pokemon = (pokemons) => {
                 </button>
                 </div>
               </div>
+
+
+            {/* <ul>
+                {pokemons.sort(sortMethods[sortState].method).map((el, i) => (
+                  <li key={i}>{el}</li>
+                ))}
+              </ul> */}
+
               {isLoading ? (
                 <p>Loading...</p>
               ) :viewMode === 'grid' ? (
@@ -199,8 +216,8 @@ const Pokemon = (pokemons) => {
                   // Default to black if type not found
                     return (
                       <div className="list-container" key={res.id} style={{ border:`3px solid ${color}`}} >
-                      <div className="list-image">
-                        <img src={res.image} alt='pokemon' style={{ backgroundColor }}/>
+                      <div className="list-image" style={{ backgroundColor }}>
+                        <img src={res.image} alt='pokemon' />
                       </div>
                       <div className='list-body' >
                       <p className='card-text'>ID :<b style={{color}}>#{res.id}</b></p>
@@ -220,3 +237,19 @@ const Pokemon = (pokemons) => {
             }
 
             export default Pokemon;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // https://stackoverflow.com/questions/65874624/how-to-toggle-between-two-css-classes-view-types-with-react
+// https://github.com/kamranahmedse/githunt/blob/next/src/feed.js
