@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Pokemon from './Pokemon';
 
-function App() {
+
+export default function App() {
+ 
+    const [pokemons, setPokemons] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+  
+  
+  let BASE_URL = `https://pokeapi.co/api/v2/pokemon?limit=50`;
+ 
+   async function getCharacters() {
+      
+    try {
+    axios.get(BASE_URL).then((res) => { 
+      let pokemonList = res.data.results;
+      console.log('response=', pokemonList);
+      
+      let pokemonArr = pokemonList.map((pokemon, index) => ({
+        ...pokemon,
+        id: index + 1,
+image:`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+          index + 1
+        }.png`,
+        
+      }));
+
+      setPokemons(pokemonArr);
+      
+    })
+    }catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+  
+  useEffect(() => {
+        getCharacters();
+  },[]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      
+      <Pokemon   pokemons={pokemons} />
     </div>
-  );
-}
-
-export default App;
+  )
+    
+    }
+  
