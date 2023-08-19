@@ -12,7 +12,7 @@ const Pokemon = (pokemons) => {
     const [filteredPokemons, setFilteredPokemons] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [sortOption, setSortOption] = useState('none'); //
-
+    const [showMore, setShowMore] = useState(false);
 
     // const sortMethods = {
     //   none: { method: (a, b) => null },
@@ -74,7 +74,7 @@ const Pokemon = (pokemons) => {
     
             setPokeList(pokemonList);
             setIsLoading(false);
-            console.log(pokemonList,pokemonList.id);
+            console.log(pokemonList);
        }catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -194,12 +194,18 @@ const Pokemon = (pokemons) => {
                       <img className="card-image" style={{ backgroundColor }} src={res.image} alt='pokemon'/>
                       <p className='card-text'>ID :<b style={{color}}>#{res.id}</b></p>
                       <p className='card-text'>Name :<b style={{color}}>{res.name}</b> </p>
+                     
+                      {showMore && (<div>
                       <p className='card-text'>Height:<b style={{color}}>{res.height}</b></p>
                       <p className='card-text'>Weight:<b style={{color}}>{res.weight}</b></p>
                       <p className='card-text' >Types:<b style={{color}}>{res.types}</b></p>
                       <p className='card-text'>BaseStats:<b style={{color}}>{res.baseStats}</b></p>
                       <p className='card-text'>Stats:<b style={{color}}>{res.stats}</b></p>
                       <p className='card-text'>Abilities:<b style={{color}}>{res.abilities}</b></p>
+                      </div> )}
+                      <button className='moreLessButton' onClick={()=>setShowMore(!showMore)}>
+                      {showMore ? "Show Less" : "Details"}
+                      </button>
                     </div>
                   </li>
                 );
